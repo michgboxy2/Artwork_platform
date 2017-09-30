@@ -5,7 +5,6 @@ var express 		= require("express"),
 	
 	//mount the routers on the API
 
-	
 	api.use("/artiste", artisteRouter);
 	api.use("/admin", adminRouter);
 
