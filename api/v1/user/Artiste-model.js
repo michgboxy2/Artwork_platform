@@ -3,12 +3,13 @@ var mongoose 	= require('mongoose'),
 	ArtisteSchema;
 
 
-	mongoose.connect("mongodb://localhost/admin");
+	mongoose.connect("mongodb://localhost/art");
 
 	ArtisteSchema = new mongoose.Schema({
 		firstname : {type : String, required : true, trim : true},
-		lastname  : { type : String, required : true, trim : true},
-		email	  : { type : String, trim : true, required : "please enter email"}
+		lastname  : { type : String, required : true},
+		email	  : { type : String, required : true, unique : true, trim : true},
+		password  : { type : String, required : true}
 	});
 
 
@@ -33,5 +34,4 @@ var mongoose 	= require('mongoose'),
 		}
 	}
 
-	mongoose.exports = mongoose.model("artiste", ArtisteSchema);
-	
+	module.exports = mongoose.model("artiste", ArtisteSchema);
