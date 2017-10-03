@@ -11,8 +11,8 @@ var mongoose 		= require('mongoose'),
 		name : {type : String, trim : true, required : 'Please insert the Art name'},
 		slug : String,
 		description : { type : String, trim : true, required : 'please give the artwork descrription'},
-		photo : {type : String},
-		category : { type : String}
+		category : { type : String},
+		photo : {type : String}
 	});
 
 
