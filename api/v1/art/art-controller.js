@@ -26,10 +26,6 @@ exports.resize = (req, res, next) => {
 	var extension = req.file.mimetype.split('/')[1];
 
 		req.body.photo = uuid.v4()+ "." +extension;
-<<<<<<< HEAD
-
-=======
->>>>>>> remote
 	
 	jimp.read(req.file.buffer).then(function(photo){
 		
@@ -46,12 +42,7 @@ exports.resize = (req, res, next) => {
 exports.AddArt	= (req, res, next) => {
 
 	var art = new ArtModel(req.body);
-	// art.save((err, data) => {
-	// 	if(err){ return next(new Error(" can't save art"));}
-
-	// 	res.status(200).json(data);
-
-	// })
+	
 	art.save().then((data) => {
 		if(!data){ return next(new Error("bla bla bla"));}
 		res.status(200).json(data);
@@ -75,13 +66,19 @@ exports.getOneArt = (req, res, next) => {
 	}, (err) => {return next(err);})
 }
 
-exports.findArt = (req, res, next) => {
-	var slug = req.params.slug;
-	ArtModel.find({slug : slug}).then(function(data){
-		if(!data){ return next(new Error("can't find an art with such slug"));}
+exports.findSlug = (req, res, next) => {
+	ArtModel.find({slug : req.params.slug}).then((slug)=> {
+		if(!slug){ return next(new Error("can't find store"));}
+		res.status(200).json(slug);
+	})
+}
+
+exports.getCategory = (req, res, next) => {
+	ArtModel.getCategoryList().then((data) => {
+		if(!data){ return next(new Error("can't find categories"));}
 		res.status(200).json(data);
 	}, (err) => { return next(err);})
-}
+} 
 
 exports.EditArt  = (req, res, next) => {
 	var id = req.params.id;
