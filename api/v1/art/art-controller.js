@@ -24,8 +24,8 @@ exports.resize = function(req, res, next){
 	return; }
 
 	var extension = req.file.mimetype.split('/')[1];
-	// console.log(uuid.v4(extension));
-	req.body.photo = uuid.v4(extension);
+
+		req.body.photo = uuid.v4()+ "." +extension;
 
 	// var photo = jimp.read(req.file.buffer);
 	//  photo.resize(800, jimp.AUTO);
@@ -33,9 +33,12 @@ exports.resize = function(req, res, next){
 
 	// next();
 	///////////////////////////////////////////////////////////////////////////////////////////
-	var data = req.file;
+	var path = (__dirname + '/www/');
+	console.log(path);
+
 	
-	 jimp.read(req.file.buffer).then(function(photo){
+	var photo = jimp.read(req.file.buffer).then(function(photo){
+		
 		if(!photo){ return next(new Error("bla bla bla"));}
 		photo.resize(800, jimp.AUTO).write(__dirname+"/www/"+req.body.photo);
 
@@ -48,6 +51,7 @@ exports.resize = function(req, res, next){
 
 exports.AddArt	= (req, res, next) => {
 	var art = new ArtModel(req.body);
+	console.log(req.body);
 	art.save((err, data) => {
 		if(err){ return next(new Error(" can't save art"));}
 		console.log(data);
