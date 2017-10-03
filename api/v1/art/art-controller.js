@@ -18,7 +18,7 @@ var ArtModel 		= require('./art.js'),
 
 exports.Uploads = multer(multerOptions).single('photo');
 
-exports.resize = function(req, res, next){
+exports.resize = (req, res, next) => {
 
 	if(!req.file){ next();
 	return; }
@@ -26,7 +26,10 @@ exports.resize = function(req, res, next){
 	var extension = req.file.mimetype.split('/')[1];
 
 		req.body.photo = uuid.v4()+ "." +extension;
+<<<<<<< HEAD
 
+=======
+>>>>>>> remote
 	
 	jimp.read(req.file.buffer).then(function(photo){
 		
@@ -41,15 +44,18 @@ exports.resize = function(req, res, next){
 	
 
 exports.AddArt	= (req, res, next) => {
+
 	var art = new ArtModel(req.body);
-	console.log(req.body);
-	art.save((err, data) => {
-		if(err){ return next(new Error(" can't save art"));}
-		console.log(data);
+	// art.save((err, data) => {
+	// 	if(err){ return next(new Error(" can't save art"));}
 
+	// 	res.status(200).json(data);
+
+	// })
+	art.save().then((data) => {
+		if(!data){ return next(new Error("bla bla bla"));}
 		res.status(200).json(data);
-
-	})
+	}, (err) => { return next(err);})
 }
 
 

@@ -10,9 +10,14 @@ var mongoose 		= require('mongoose'),
 	ArtSchema = new mongoose.Schema({
 		name : {type : String, trim : true, required : 'Please insert the Art name'},
 		slug : String,
+		created : {  type : Date, default : Date.now},
 		description : { type : String, trim : true, required : 'please give the artwork descrription'},
 		category : { type : String},
+<<<<<<< HEAD
 		photo : {type : String}
+=======
+		photo : String
+>>>>>>> remote
 	});
 
 

@@ -1,0 +1,8 @@
+.vagrant
+phpmyadmin/
+.node_modules/
+node_modules
+auth.js
+api/v1/auth/auth.js
+api/v1/auth/auth.js/
+variables.env
